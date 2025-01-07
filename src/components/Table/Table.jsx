@@ -53,6 +53,7 @@ export default function BasicTable() {
     const [newChambre, setNewChambre] = useState({ taille: "", equipements: "", status: true }); // New chambre data
     const [residentDialogOpen, setResidentDialogOpen] = useState(false);
 const [residentData, setResidentData] = useState([]);
+const [residentDialog1Open, setResidentDialog1Open] = useState(false);
 
   
     useEffect(() => {
@@ -222,6 +223,39 @@ const [residentData, setResidentData] = useState([]);
 
   
 
+// Nouvelle méthode pour récupérer les résidents sans chambre
+const handleAssignResidentClick = (chambre) => {
+  axios
+    .get("http://localhost:8080/api/residents/without-chambre") // Assurez-vous que cette route renvoie les résidents sans chambre
+    .then((response) => {
+      setResidentData(response.data);
+      setCurrentChambre(chambre); // Conserver la chambre sélectionnée
+      setResidentDialog1Open(true); // Ouvre le dialogue
+    })
+    .catch((error) => {
+      alert("Erreur lors de la récupération des résidents : " + (error.response ? error.response.data : error.message));
+    });
+};
+
+const handleAssignResident = (residentId) => {
+  axios
+    .put(`http://localhost:8080/api/chambres/assign/${currentChambre.id}`, { residentId }) // Adapter la route
+    .then(() => {
+      alert("Résident attribué avec succès !");
+      fetchChambres();
+      setResidentDialog1Open(false); // Fermer le dialogue après l'attribution
+    })
+    .catch((error) => {
+      alert("Erreur lors de l'attribution : " + (error.response ? error.response.data : error.message));
+    });
+};
+
+
+
+
+
+
+
 
 
   if (loading) return <p>Chargement des données...</p>;
@@ -328,7 +362,7 @@ const [residentData, setResidentData] = useState([]);
   </Button>
   <Button
     style={{ fontSize: '12px', textTransform: 'lowercase' }}
-    onClick={() => handleDelete(row.id)}
+    onClick={() => handleAssignResidentClick(row)}
   >
     attribuer la chambre
   </Button>
@@ -439,6 +473,44 @@ const [residentData, setResidentData] = useState([]);
   <DialogActions>
     <Button onClick={() => setResidentDialogOpen(false)}>Fermer</Button>
   </DialogActions>
+</Dialog>
+
+
+
+
+<Dialog open={residentDialog1Open} onClose={() => setResidentDialog1Open(false)}>
+  <DialogTitle>Attribuer un résident</DialogTitle>
+  <DialogContent>
+    <TableContainer component={Paper}>
+      <Table>
+        <TableHead>
+          <TableRow>
+            <TableCell>ID</TableCell>
+            <TableCell>Nom</TableCell>
+            <TableCell>Email</TableCell>
+            <TableCell>Attribuer</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {residentData.map((resident) => (
+            <TableRow key={resident.id}>
+              <TableCell>{resident.id}</TableCell>
+              <TableCell>{resident.nom}</TableCell>
+              <TableCell>{resident.email}</TableCell>
+              <TableCell>
+                <Button
+                  color="primary"
+                  onClick={() => handleAssignResident(resident.id)}
+                >
+                  Sélectionner
+                </Button>
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
+  </DialogContent>
 </Dialog>
 
     </div>

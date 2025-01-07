@@ -404,6 +404,7 @@ export default function TableResident() {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
+    password:"",
     incidentId: "",
     paiementId: "",
   });
@@ -558,6 +559,7 @@ export default function TableResident() {
               <TableCell>ID</TableCell>
               <TableCell>Nom</TableCell>
               <TableCell>Email</TableCell>
+              <TableCell>password</TableCell>
               <TableCell>Actions</TableCell>
             </TableRow>
           </TableHead>
@@ -567,6 +569,7 @@ export default function TableResident() {
                 <TableCell>{row.id}</TableCell>
                 <TableCell>{row.name}</TableCell>
                 <TableCell>{row.email}</TableCell>
+                <TableCell>{row.password}</TableCell>
                 <TableCell>
                   <Button onClick={() => handleOpen(row)}>Modifier</Button>
                   <Button onClick={() => handleDelete(row.id)}>Supprimer</Button>
@@ -596,6 +599,14 @@ export default function TableResident() {
             label="Email"
             fullWidth
             value={formData.email}
+            onChange={handleInputChange}
+          />
+          <TextField
+            margin="dense"
+            name="password"
+            label="password"
+            fullWidth
+            value={formData.password}
             onChange={handleInputChange}
           />
         </DialogContent>
