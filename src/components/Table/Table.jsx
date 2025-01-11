@@ -336,8 +336,8 @@ const handleAssignResident = (residentId) => {
         </span>
       </TableCell>
       <TableCell align="left">
-  <span
-    style={{ cursor: "pointer", color: "blue", textDecoration: "underline",fontSize: '12px', textTransform: 'lowercase' }}
+  <span  class=" text-purple-600 hover:bg-white-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:hover:text-white-700 dark:focus:ring-primary-800 " 
+    style={{ cursor: "pointer",fontSize: '12px', textTransform: 'lowercase' }}
     
     onClick={() => handleResidentClick(row.id)}
   >
@@ -348,19 +348,19 @@ const handleAssignResident = (residentId) => {
 
 </TableCell>
 <TableCell align="left">
-  <Button
+  <Button     class=" text-purple-600 hover:bg-white-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:hover:text-white-700 dark:focus:ring-primary-800 " 
     style={{ fontSize: '12px', textTransform: 'lowercase' }}
     onClick={() => handleOpen(row)}
   >
     Modifier
   </Button>
-  <Button
+  <Button class=" text-purple-600 hover:bg-white-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:hover:text-white-700 dark:focus:ring-primary-800 "
     style={{ fontSize: '12px', textTransform: 'lowercase' }}
     onClick={() => handleDelete(row.id)}
   >
     Supprimer
   </Button>
-  <Button
+  <Button class=" text-purple-600 hover:bg-white-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:hover:text-white-700 dark:focus:ring-primary-800 " 
     style={{ fontSize: '12px', textTransform: 'lowercase' }}
     onClick={() => handleAssignResidentClick(row)}
   >
@@ -375,7 +375,7 @@ const handleAssignResident = (residentId) => {
 </TableBody>
         </Table>
       </TableContainer>
-      <Button
+      <Button   class=" text-white bg-purple-600 hover:bg-purple-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 mt-5" 
         variant="contained"
         color="primary"
         style={{ marginTop: "20px" }}
@@ -437,11 +437,16 @@ const handleAssignResident = (residentId) => {
       </Dialog>
 
 
-      <Dialog open={residentDialogOpen} onClose={() => setResidentDialogOpen(false)}>
-  <DialogTitle>Résidents de la chambre</DialogTitle>
-  <DialogContent>
-    <TableContainer component={Paper}>
-      <Table>
+      <Dialog  open={residentDialogOpen} onClose={() => setResidentDialogOpen(false)}>
+  <DialogTitle style={{ border: 'none', backgroundColor: '#f0f0f0' }}>Résidents de la chambre</DialogTitle>
+  <DialogContent style={{ border: 'none', backgroundColor: '#f0f0f0' }}>
+    <TableContainer style={{ 
+  border: 'none', 
+  borderRadius: '0', 
+  boxShadow: 'none', 
+  backgroundColor: '#f0f0f0' 
+}} component={Paper}>
+      <Table style={{ border: 'none', backgroundColor: '#f0f0f0' }}>
         <TableHead>
           <TableRow>
             <TableCell>ID</TableCell>
@@ -457,8 +462,7 @@ const handleAssignResident = (residentId) => {
               <TableCell>{resident.nom}</TableCell>
               <TableCell>{resident.email}</TableCell>
               <TableCell>
-                <Button
-                  color="secondary"
+                <Button class=" text-purple-600 hover:bg-white-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:hover:text-white-700 dark:focus:ring-primary-800 " color="secondary"
                   onClick={() => handleDeleteResident(resident.id)}
                 >
                   Supprimer
@@ -470,8 +474,8 @@ const handleAssignResident = (residentId) => {
       </Table>
     </TableContainer>
   </DialogContent>
-  <DialogActions>
-    <Button onClick={() => setResidentDialogOpen(false)}>Fermer</Button>
+  <DialogActions style={{ border: 'none', backgroundColor: '#f0f0f0' }}>
+    <Button class=" text-purple-600 hover:bg-white-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:hover:text-white-700 dark:focus:ring-primary-800 " onClick={() => setResidentDialogOpen(false)}>Fermer</Button>
   </DialogActions>
 </Dialog>
 
@@ -481,7 +485,13 @@ const handleAssignResident = (residentId) => {
 <Dialog open={residentDialog1Open} onClose={() => setResidentDialog1Open(false)}>
   <DialogTitle>Attribuer un résident</DialogTitle>
   <DialogContent>
-    <TableContainer component={Paper}>
+    <TableContainer component={Paper}
+    style={{ 
+      border: 'none', 
+      borderRadius: '0', 
+      boxShadow: 'none', 
+      
+    }} >
       <Table>
         <TableHead>
           <TableRow>
@@ -498,8 +508,8 @@ const handleAssignResident = (residentId) => {
               <TableCell>{resident.nom}</TableCell>
               <TableCell>{resident.email}</TableCell>
               <TableCell>
-                <Button
-                  color="primary"
+                <Button class=" text-purple-600 hover:bg-white-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:hover:text-white-700 dark:focus:ring-primary-800 " 
+                  
                   onClick={() => handleAssignResident(resident.id)}
                 >
                   Sélectionner

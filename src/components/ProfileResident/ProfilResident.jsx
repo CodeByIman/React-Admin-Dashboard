@@ -1,10 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import profile from "../../imgs/profile.png";
 import back from "../../imgs/back.jpg";
+import axios from 'axios'; // Import axioss
+import Modal from '@mui/material/Modal';
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+
 
 const ProfilResident = () => {
   const [resident, setResident] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
+  const [open, setOpen] = useState(false);
    const [updatedResident, setUpdatedResident] = useState({
   name: '',
   email: '',
@@ -12,11 +19,54 @@ const ProfilResident = () => {
   });
 
 
+  const [formData, setFormData] = useState({
+    typeIncident: '',
+    statut: '',
+    description: '',
+  });
 
-  const handleEditClick = () => {
-    setIsEditing(true);
-    setUpdatedResident(resident); // Initialise les valeurs avec les données actuelles
+
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
   };
+
+  
+
+
+
+
+
+
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  if (!resident || !resident.id) {
+    alert("Résident non chargé. Impossible de déclarer un incident.");
+    return;
+  }
+  const incidentData = {
+    ...formData,
+    residentId: resident.id, // Fix: Utilisation de l'ID du résident
+  };
+
+  try {
+    await axios.post('http://localhost:8080/api/incidents/add', incidentData);
+    alert("Incident déclaré avec succès !");
+    handleClose();
+  } catch (error) {
+    console.error("Erreur lors de la déclaration de l'incident", error);
+    alert("Erreur lors de la déclaration de l'incident.");
+  }
+};
+
+
+
   
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -58,11 +108,6 @@ const ProfilResident = () => {
   const handleLogout = () => {
     localStorage.removeItem('resident');
     window.location.href = '/login';
-  };
-
-   // Define the toggleDarkMode function
-  const toggleDarkMode = () => {
-    document.documentElement.classList.toggle('dark');
   };
 
   
@@ -116,13 +161,7 @@ const ProfilResident = () => {
    */}
 
 <div>
-        <button
-          onClick={toggleDarkMode}
-          className="fixed top-4 right-4 p-2 rounded-lg bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors duration-200"
-        >
-          {/* SVG icons for light and dark mode */}
-        </button>
-
+        
         <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden transition-colors duration-200">
           <div className="relative h-48">
             <img
@@ -181,6 +220,12 @@ const ProfilResident = () => {
       Submit
     </button>
   )}
+  <button
+     onClick={handleOpen}
+      className="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg transition-colors duration-200 text-sm font-medium"
+    >
+      declarer incident
+    </button>
 </div>
 
             </div>
@@ -240,6 +285,59 @@ const ProfilResident = () => {
          {/* )} */}
          
       </div>
+
+
+      <Modal open={open} onClose={handleClose}>
+        <Box
+          component="form"
+          onSubmit={handleSubmit}
+          sx={{
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            width: 400,
+            bgcolor: 'background.paper',
+            boxShadow: 24,
+            p: 4,
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 2,
+          }}
+        >
+          <TextField
+            label="Type d'incident"
+            name="typeIncident"
+            value={formData.typeIncident}
+            onChange={handleChange}
+            required
+          />
+          <TextField
+            label="Statut"
+            name="statut"
+            value={formData.statut}
+            onChange={handleChange}
+            required
+          />
+          <TextField
+            label="Description"
+            name="description"
+            value={formData.description}
+            onChange={handleChange}
+            multiline
+            rows={4}
+            required
+          />
+          <Button
+            type="submit"
+            variant="contained"
+            color="primary"
+            className="bg-red-600 hover:bg-red-700 text-white"
+          >
+            Soumettre
+          </Button>
+        </Box>
+      </Modal>
     
     </div>
   );

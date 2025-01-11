@@ -34,7 +34,7 @@ export const SidebarData = [
   },
   {
     icon: UilMoneyWithdrawal,
-    heading: "Paiement en retard", // Icône pour symboliser des paiements
+    heading: "Paiement", // Icône pour symboliser des paiements
   },
   {
     icon: UilExclamationCircle,

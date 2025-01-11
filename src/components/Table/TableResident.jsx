@@ -538,13 +538,15 @@ export default function TableResident() {
   return (
     <div className="Table">
       <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "20px" }}>
-        <FormControl variant="outlined" size="small">
-          <Select value={filter} onChange={handleFilterChange}>
+        <FormControl variant="outlined" size="small" className="custom-style ">
+          <Select value={filter} onChange={handleFilterChange} className="text-white bg-purple-200 hover:bg-purple-100 focus:ring-0 focus:border-transparent rounded-[10px]"
+ >
             <MenuItem value="all">Tous les Residents</MenuItem>
             <MenuItem value="disponible">Residents Disponibles</MenuItem>
           </Select>
         </FormControl>
-        <TextField
+        <TextField className="text-white bg-purple-200 hover:bg-purple-100 focus:ring-0 focus:border-transparent rounded-[10px]"
+ 
           size="small"
           variant="outlined"
           placeholder="Rechercher par ID"
@@ -569,17 +571,17 @@ export default function TableResident() {
                 <TableCell>{row.id}</TableCell>
                 <TableCell>{row.name}</TableCell>
                 <TableCell>{row.email}</TableCell>
-                <TableCell>{row.password}</TableCell>
+                 <TableCell>{row.password}</TableCell>
                 <TableCell>
-                  <Button onClick={() => handleOpen(row)}>Modifier</Button>
-                  <Button onClick={() => handleDelete(row.id)}>Supprimer</Button>
+                  <Button  style={{ fontSize: '12px', textTransform: 'lowercase' }}   class=" text-purple-600 hover:bg-white-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:hover:text-white-700 dark:focus:ring-primary-800 " onClick={() => handleOpen(row)}>Modifier</Button>
+                  <Button  style={{ fontSize: '12px', textTransform: 'lowercase' }} class=" text-purple-600 hover:bg-white-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:hover:text-white-700 dark:focus:ring-primary-800 " onClick={() => handleDelete(row.id)}>Supprimer</Button>
                 </TableCell>
               </TableRow>
             ))}
           </TableBody>
         </Table>
       </TableContainer>
-      <Button variant="contained" color="primary" onClick={() => handleOpen(null, true)}>
+      <Button   class=" text-white bg-purple-600 hover:bg-purple-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 mt-5" variant="contained" color="primary" onClick={() => handleOpen(null, true)}>
         Ajouter un Resident
       </Button>
       <Dialog open={open} onClose={handleClose}>
