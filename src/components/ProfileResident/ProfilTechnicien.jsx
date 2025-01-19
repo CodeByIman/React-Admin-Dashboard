@@ -14,6 +14,14 @@ const ProfilTechnicien = () => {
     password: '',
     idTechnicien :'',
   });
+
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+const [selectedStatus, setSelectedStatus] = useState('');
+const [currentIncidentId, setCurrentIncidentId] = useState(null);
+
+
+
   const [assignedIncidents, setAssignedIncidents] = useState([]);
 
   useEffect(() => {
@@ -55,6 +63,31 @@ const ProfilTechnicien = () => {
       alert("Erreur lors de la modification du profil.");
     }
   };
+
+
+
+
+
+  const openModal = (incidentId) => {
+    setCurrentIncidentId(incidentId);
+    setIsModalOpen(true);
+  };
+  const handleStatusChange = (e) => {
+    setSelectedStatus(e.target.value);
+  };
+  const handleSubmitStatus = async () => {
+    try {
+      await axios.put(`http://localhost:8080/api/incidents/${currentIncidentId}/status`, { statut: selectedStatus });
+      alert('Statut mis à jour avec succès !');
+      setIsModalOpen(false);
+      // Mettez à jour la liste des incidents assignés après la modification
+      fetchAssignedIncidents(technicien.idTechnicien);
+    } catch (error) {
+      console.error('Erreur lors de la mise à jour du statut', error);
+      alert('Erreur lors de la mise à jour du statut.');
+    }
+  };
+      
 
   if (!technicien) {
     return <p>Chargement...</p>;
@@ -178,7 +211,7 @@ const ProfilTechnicien = () => {
                         </td>
                         <td className="px-4 py-2 border-b border-gray-300 dark:border-gray-600">
                           <button
-                            
+                             onClick={() => openModal(incident.id)}
                             className="bg-purple-500 hover:bg-purple-700 text-white font-bold py-1 px-2 rounded text-xs"
                           >
                             Changer le statut
@@ -197,7 +230,40 @@ const ProfilTechnicien = () => {
           </div>
         </div>
       </div>
+      {isModalOpen && (
+  <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+    <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg">
+      <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">Changer le statut de l'incident</h2>
+      <select
+        value={selectedStatus}
+        onChange={handleStatusChange}
+        className="w-full mt-2 p-2 rounded bg-gray-100 dark:bg-gray-700 dark:text-white"
+      >
+        <option value="">Sélectionnez un statut</option>
+        <option value="EN_COURS">En cours</option>
+        <option value="FAIT">Fait</option>
+        <option value="EN_ATTENTE">En attente</option>
+      </select>
+      <div className="mt-4 flex justify-end">
+        <button
+          onClick={() => setIsModalOpen(false)}
+          className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-1 px-4 rounded mr-2"
+        >
+          Annuler
+        </button>
+        <button
+          onClick={handleSubmitStatus}
+          className="bg-purple-500 hover:bg-purple-700 text-white font-bold py-1 px-4 rounded"
+        >
+          Enregistrer
+        </button>
+      </div>
     </div>
+  </div>
+)}
+
+    </div>
+    
   );
 };
 
