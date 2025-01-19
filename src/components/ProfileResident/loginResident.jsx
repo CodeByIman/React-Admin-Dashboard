@@ -7,20 +7,56 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
+  const [role, setRole] = useState("resident"); // Rôle par défauts
 
+
+
+
+
+  
   const handleLogin = async (e) => {
     e.preventDefault();
-    try {
-      const response = await axios.post("http://localhost:8080/api/residents/login", {
-        email,
-        password,
-      });
+
+
+    let apiUrl = "";
+    switch (role) {
+      case "admin":
+        apiUrl = "http://localhost:8080/api/admins/login";
+        break;
+      case "technicien":
+        apiUrl = "http://localhost:8080/api/techniciens/login";
+        break;
+      case "resident":
+      default:
+        apiUrl = "http://localhost:8080/api/residents/login";
+        break;
+    }
+
+
+
+     try {
+      const response = await axios.post(apiUrl, { email, password });
       if (response.data) {
-        localStorage.setItem("resident", JSON.stringify(response.data));
+        // Stocker les informations de l'utilisateur dans le stockage local
+       
+        // Rediriger en fonction du rôle
+        switch (role) {
+          case "admin":
+            navigate('/dashboard');
+            break;
+          case "technicien":
+            localStorage.setItem("technicien", JSON.stringify(response.data));
+            navigate("/profile-tech");
+            break;
+          case "resident":
+          default:
+            localStorage.setItem("resident", JSON.stringify(response.data));
         navigate("/profile");
+            break;
+        }
       }
     } catch (err) {
-      setError("Invalid email or password");
+      setError("Email ou mot de passe invalide");
     }
   };
 
@@ -77,7 +113,26 @@ const Login = () => {
                           </div>
                       </div>
                       </div>
-                      
+                      <div>
+                  <label
+                    htmlFor="role"
+                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                  >
+                    Sélectionnez votre rôle
+                  </label>
+                  <select
+                    id="role"
+                    name="role"
+                    className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    value={role}
+                    onChange={(e) => setRole(e.target.value)}
+                    required
+                  >
+                    <option value="resident">Résident</option>
+                    <option value="technicien">Technicien</option>
+                    <option value="admin">Admin</option>
+                  </select>
+                </div>
                   <button type="submit" class="w-full text-white bg-purple-600 hover:bg-purple-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Sign in</button>
                   <p class="text-sm font-light text-gray-500 dark:text-gray-400">
                   si vous n'aver pas de compte contactez votre administration pour creer votre compte

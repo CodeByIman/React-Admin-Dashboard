@@ -5,7 +5,8 @@ import Sidebar from './components/Sidebar';
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';  // Corrige les importations manquantes pour Routes et Route
 import Login from './components/ProfileResident/loginResident';  // Vérifiez le chemin correct pour le composant Login
-import ProfilResident from './components/ProfileResident/ProfilResident';  // Vérifiez le chemin correct pour ProfileResident
+import ProfilResident from './components/ProfileResident/ProfilResident';
+import ProfilTechnicien from './components/ProfileResident/ProfilTechnicien';   // Vérifiez le chemin correct pour ProfileResident
 
 
 function App() {
@@ -28,7 +29,7 @@ function App() {
 <Router>
       <Routes>
         {/* Route pour le tableau de bord */}
-        <Route path="/" element={
+        <Route path="/dashboard" element={
           <div className="App">
             <div className="AppGlass">
               <Sidebar selected={selected} setSelected={setSelected} />
@@ -39,7 +40,8 @@ function App() {
         } />
 
         {/* Route pour la page de connexion */}
-        <Route path="/login" element={<Login />} />
+        <Route path="/" element={<Login />} />
+        <Route path="/profile-tech" element={<ProfilTechnicien />} />
 
         {/* Route pour la page de profil résident */}
         <Route path="/profile" element={<ProfilResident />} />

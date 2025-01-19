@@ -17,6 +17,7 @@
   --activeItem: #1100ff54;
 }
 
+
 .App {
   /* padding: 0.5rem 3.5rem; */
   color: var(--black);
@@ -31,6 +32,7 @@
   align-items: center;
   justify-content: center;
   font-family: 'Inter', sans-serif;
+  
 }
 
 .AppGlass {
@@ -41,7 +43,9 @@
   border-radius: 1rem;
   gap: 16px;
   grid-template-columns: 11rem auto;
-  overflow: hidden;
+  overflow-x: hidden;
+    overflow-y: auto;
+  
 }
 
 @media screen and (max-width: 1200px) {
