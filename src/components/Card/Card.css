@@ -21,11 +21,11 @@
   gap: 1rem;
 }
 .CircularProgressbar {
-  width: 6.5rem !important;
+  width: 5rem !important;
   overflow: visible;
 }
 .CircularProgressbar-path {
-  stroke: white !important;
+  stroke: rgb(255, 255, 255) !important;
   stroke-width: 12px !important;
   filter: drop-shadow(2px 4px 6px white);
 }

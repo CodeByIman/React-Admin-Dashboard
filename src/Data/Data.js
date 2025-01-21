@@ -73,12 +73,7 @@ export const cardsData = [
     barValue: 34,
     value: "14,270",
     png: UilMoneyWithdrawal,
-    series: [
-      {
-        name: "Revenue",
-        data: [10, 100, 50, 70, 80, 30, 40],
-      },
-    ],
+    
   },
   {
     title: "Cpacité d'heberegement",
