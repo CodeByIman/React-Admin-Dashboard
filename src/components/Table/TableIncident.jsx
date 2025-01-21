@@ -293,7 +293,7 @@ export default function TableIncident() {
                 key={technician.id}
               >
                 <ListItemText
-                  primary={technician.idTechnicien}
+                  primary={technician.nomTechnicien}
                   secondary={technician.specialite}
                 />
               </ListItem>
