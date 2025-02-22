@@ -37,6 +37,7 @@ function CompactCard({ param }) {
 
 // Text Card for non-percentage display
 function TextCard({ param }) {
+  console.log("TextCard props:", param); // Vérifiez les props
   const Png = param.png;
   return (
     <motion.div
@@ -50,7 +51,7 @@ function TextCard({ param }) {
       <div className="detail">
         <Png />
         <span>{param.title}</span>
-        <h1>{param.value}</h1> {/* Display value as plain text */}
+        <h1>{param.value}</h1>
       </div>
     </motion.div>
   );

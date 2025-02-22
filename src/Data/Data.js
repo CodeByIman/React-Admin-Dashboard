@@ -79,7 +79,7 @@ export const cardsData = [
     title: "Cpacité d'heberegement",
     color: {
       backGround:
-        "linear-gradient(rgb(252, 96, 24) -146.42%, rgb(255 202 113) -46.42%)",
+        "linear-gradient(rgb(249, 125, 67) -146.42%, rgb(255 202 113) -46.42%)",
       boxShadow: "0px 10px 20px 0px rgb(249, 155, 155)",
     },
     barValue: 60,
