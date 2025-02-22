@@ -40,10 +40,7 @@ export const SidebarData = [
     icon: UilExclamationCircle,
     heading: "Incident en cours", // Icône d'avertissement pour les incidents
   },
-  {
-    icon: UilAnalytics,
-    heading: "Statistiques", // Icône pour les analyses et graphiques
-  },
+ 
 ];
 
 // Analytics Cards Data

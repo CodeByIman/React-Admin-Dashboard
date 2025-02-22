@@ -6,11 +6,13 @@ import { SidebarData } from "../Data/Data";
 import { UilBars } from "@iconscout/react-unicons";
 import { motion } from "framer-motion";
 import MainDash from "./MainDash/MainDash";
+import { useNavigate } from "react-router-dom"; // Import useNavigate
 
 const Sidebar = ({ selected, setSelected }) => {
  
 
   const [expanded, setExpaned] = useState(true)
+  const navigate = useNavigate(); // navigation
 
   const sidebarVariants = {
     true: {
@@ -20,6 +22,13 @@ const Sidebar = ({ selected, setSelected }) => {
       left : '-60%'
     }
   }
+  // Sign-out function
+  // Sign-out function
+  const handleSignOut = () => {
+    navigate("/"); // Redirect to login page
+  };
+
+
   console.log(window.innerWidth)
   return (
     <>
@@ -49,10 +58,11 @@ const Sidebar = ({ selected, setSelected }) => {
           <span>{item.heading}</span>
         </div>
       ))}
-      <div className="menuItem">
-        <UilSignOutAlt />
-        <span>Sign Out</span>
-      </div>
+      {/* Sign Out Button */}
+      <div className="menuItem" onClick={handleSignOut}>
+            <UilSignOutAlt />
+            <span>Sign Out</span>
+          </div>
     </div>
     </motion.div>
     </>
